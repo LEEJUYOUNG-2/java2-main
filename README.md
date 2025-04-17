@@ -14,7 +14,18 @@
 
 ## 3월 27일(3주차)
 
+'''c
+public class Ex3DoWhile {
+    public static void main (String[] args) {
+        char a = 'a'; 
 
+        do {
+            System.out.print(a);
+            a = (char) (a + 1);
+        } while (a <= 'z');
+    }    
+}
+'''
 #### README.md 파일 편집
 
 * 이름 학번 h1 제일 위에 기재
