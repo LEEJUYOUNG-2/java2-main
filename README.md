@@ -26,6 +26,14 @@ class ColorPoint extends Point { // point를 상속받는 colorpoint 생성
 
 }
 '''
+'''c
+#public class SubClass extends SuperClass {
+    public SubClass() {
+        super("Hello");  // 슈퍼 클래스의 특정 생성자 호출
+    }
+}
+'''
+
 
 ## 4월 17일 (7주차)
 ### this 레퍼런스
