@@ -13,7 +13,7 @@
 * 상수 필드는선언 시에 초기 값 지정
 * 상수 필드는 실행 중에 값 변경할 수 없다
 '''c
-class SharedClass {
+#class SharedClass {
 public static final double P1 = 3.14;
 }
 '''
