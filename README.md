@@ -17,7 +17,12 @@
 public static final double P1 = 3.14;
 }
 '''
-
+'''c
+class Point {
+int x,y;
+}
+class ColorPoint extends Point { // point를 상속받는 colorpoint 생성
+}
 ## 4월 17일 (7주차)
 ### this 레퍼런스
 * 컴파일러에 의해 자동 관리, 개발자는 사용하기만 하면 됨
