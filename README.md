@@ -1,5 +1,5 @@
 # 이주영 202230140
-'''java
+'''j
 abstract class Shape { 
 public Shape() { ... }
 public void edit() {...}
