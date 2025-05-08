@@ -1,12 +1,12 @@
 # 이주영 202230140
-
+'''c
 abstract class Shape { 
 public Shape() { ... }
 public void edit() {...}
 
 abstract public void draw(); // 추상메소드
 }
-
+'''
 ## 4월 18일 5/1 보강
 ### static 메소드의 제약 조건 2
 * static 메소드는 this 사용불가
