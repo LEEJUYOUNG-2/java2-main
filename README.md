@@ -2,10 +2,10 @@
 
 '''c
 
-interface MobilePhoneInterface extends PhoneInterface {
+''interface MobilePhoneInterface extends PhoneInterface {
     void sendSMS(); //추상 메소드 추가
     void receiveSMS(); // 추상 메소드 추가
-}
+}''
 
 '''
 
