@@ -1,6 +1,6 @@
 # 이주영 202230140
 
-
+                 
 '''
 abstract class Shape { 
 public Shape() { ... }
