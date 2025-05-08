@@ -21,13 +21,13 @@ abstract public void draw(); // 추상메소드
 * final 필드 : 상수 선언(고정값) 사용
 * 상수 필드는선언 시에 초기 값 지정
 * 상수 필드는 실행 중에 값 변경할 수 없다
-'''c
+'''
 #class SharedClass {
 public static final double P1 = 3.14;
 }
 '''
 
-'''c
+'''
 class Point {
 int x,y;
 }
@@ -35,7 +35,7 @@ class ColorPoint extends Point { // point를 상속받는 colorpoint 생성
 
 }
 '''
-'''c
+'''
 #public class SubClass extends SuperClass {
     public SubClass() {
         super("Hello");  // 슈퍼 클래스의 특정 생성자 호출
