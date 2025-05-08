@@ -1,7 +1,6 @@
 # 이주영 202230140
 
-'''c
-
+'''vscode
 interface MobilePhoneInterface extends PhoneInterface {
     void sendSMS(); //추상 메소드 추가
     void receiveSMS(); // 추상 메소드 추가
