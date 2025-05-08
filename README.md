@@ -1,10 +1,12 @@
 # 이주영 202230140
 
 '''j
+
 interface MobilePhoneInterface extends PhoneInterface {
     void sendSMS(); //추상 메소드 추가
     void receiveSMS(); // 추상 메소드 추가
 }
+
 '''
 
 
