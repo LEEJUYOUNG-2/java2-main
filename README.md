@@ -529,7 +529,7 @@ int(배열타입) intArrary(배열에 대한 래퍼런스 변수) [];(배열 선
 * intArray = new int [5]; -(0 1 2 3 4 )
 * intArray = new int [6]; -(0 1 2 3 4 5)
 * 자바 배열 - 객체 처리 배열 크기는 배열 객체 length 필드에 저장
-* for(int i=0; i<intArray.lenght; i++) // intArray 배열 크기만큼 루프 돈다
+* for(int i=0; i<intArray.lenght; i++) - intArray 배열 크기만큼 루프 돈다
 ### for-each 문
 * 배열이나 나열의 원소를 순차 접근하는데 유용한 for 문
 ### 2차원 배열
