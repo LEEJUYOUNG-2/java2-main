@@ -1,11 +1,11 @@
 # 이주영 202230140
 
-'''java
+```java
 for (int x=0; x(10; x++){
     int n = (int)(Math.random()*100 + 1); // 1~100까지의 랜덤 정수 발생
     System.out.prinln(n);
 }
-'''
+```
 
 ## 5월 8일
 ### 추상 클래스 
