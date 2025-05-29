@@ -1,11 +1,216 @@
 # 이주영 202230140
 
-```java
+## 5월 22일
+### StringBuffer 클래스
+* 가변 스트링을 다루는 클래스
+* 객체 생성 
+StringBuffer sb = new StringBuffer("java");
+* String 클래스와 달리 문자열 변경 가능
+* 가변 크기의 버퍼를 가지고 있어 문자열 수정 가능
+* 문자열의 수정이 많은 작업에 적합
+
+```
+String buffer sb =new StringBuffer("This");
+
+sb.append(* is pencil); // sb = "This is pencil"
+sb.insert(7, "my"); // sb= "This is my pencil"
+sb.replace(8,10, "your"); // sb = "This is your pencil"
+System.out.println(sb); // This is your pencil 출력
+```
+###
+StringTokenizer 클래스
+* 구분 문자를 기준으로 문자열을 분리하는 클래스
+* 구분 문자 : 문자열을 구분할 때 사용되는 문자
+* 토큰 : 구분 문자로 분리된 문자열
+```
+String query + "name- kitae&addr-seoul&age-21";
+StringTokenizer st = new StringTokenizer(query, "&");
+```
+* st = name=kitae 토큰 1 
+* addr = seoul 토큰 2
+* age = 21 토큰3
+* int count = st.countTokens(); 토큰 개수 알아내기 count = 3
+String token = st.nextToken(); 다음 토큰 얻어내기 st = "name = kitae"
+### StringTokenizer로 문자열 분리 사례
+```
+StringTokenizer st = new StringTokenizer(query, "&");
+```
+* st = name 토큰1
+* kitae 토큰2
+* addr 토큰3
+* seoul 토큰4
+* age 토큰5
+* 21 토큰6
+```
+int count = st.countTokens(); 토큰 개수 알아내기 count = 6
+String token = st.nextToken(); 다음 토큰 얻어내기 st = "name"
+```
+### Math 클래스
+* 기본 산술 연산 메소드를 제공하는 클래스
+* 모든 메소드는 static으로 선언
+* . 클래스 이름으로 호출 가능
+* Math.random() 메소드로 난수 발생
+* random()은 0보다 크거나 같고 1.0보다 작은 실수 난수 발생
+* 1에서 100까지의 랜덤 정수 10개를 발생시키는 코드 사례
+```
 for (int x=0; x(10; x++){
     int n = (int)(Math.random()*100 + 1); // 1~100까지의 랜덤 정수 발생
     System.out.prinln(n);
 }
 ```
+* java.util.random 클래스 이용하여 난수 발생 가능
+```
+Random r = new Random();
+int n = r.nextint(); //음수 , 양수, 0포함 자바의 정수 범위 난수 발생
+int m = r.nextint(100); //0에서 99사이(0,99포함)의 정수 난수 발생
+```
+### 7장
+#### 컬렉션의 개념
+* 요소라고 불리는 가변 개수의 객체들의 저장소
+* 객체들의 컨테이너라고도 불림
+* 요소의 개수에 따라 크기 자동 조절
+* 요소의 삽입, 삭제에 따른 요소의 위치 자동 이동
+* 고정 크기의 배열을 다루는 어려움 해소
+* 다양한 객체들의 삽입, 삭제, 검색 등의 관리 용어
+#### 컬렉션의 특징
+* 1. 컬렉션은 제네릭 기법으로 구현
+* 제네릭
+* 특정 타입만 다루지 않고, 여러 종류의 타입으로 변신할 수 있도록 클래스나 메소드를 일반화 시키는 기법
+* 클래스나 인터페이스 이름에 <E> <K> <V>등 타입 매개변수 포함
+* 제네릭 컬렉션 사레: 벡터 Vector<E>
+* <E>에서 E에 구체적인 타입을 주어 구체적 타입만 다루는 벡터로 활용
+* 정수만 다루는 컬렉션 벡터 Vector<Integer>
+* 문자열만 다루는 컬렉션 벡터 Vector<String>
+* 2. 컬렉션의 요소는 객체만 가능
+* int, char, double 등의 기본타입으로 구체화 불가
+* 컬렉션 사레
+```
+Vector<int> v = new Vector<int>(); //컴파일 오류, int 사용 불가
+Vector<integer> v = new Vector<integer>();
+```
+* ##### 제네릭의 기본 개념
+* 제네릭
+* jdk 1.5 부터 도입(2004)
+* 모든 종류의 데이터 타입을 다룰 수 있도록 일반화된 타입 매개 변수로 클래스(인터페이스)나 메소드를 작성하는 기법
+* c++의 템플릿과 동일
+##### Vector <E>의 특성
+* <E>에 사용할 요소의 특정 타입으로 구체화
+* 배열을 가변 크기로 다룰 수 있게 하는 컨테이너
+* 배열의 길이 제한 극복 
+* 요소의 개수가 넘치면 자동으로 길이 조절
+* 요소 객체들을 삽입, 삭제, 검색하는 컨테이너
+* 삽입, 삭제에 따라 자동으로 요소의 위치 조정
+* Vector에 삽입 가능한 것
+* 객체, null
+* 기본 타입의 값은 Wrapper 객체로 만들어 저장
+* 객체 삽입은 벡터의 맨 뒤, 중간에 객체 삽입 가능
+* 객체 삭제는 임의의 위치에 있는 객체 삭제 가능
+##### 컬렉션과 자동 박싱/언박싱
+* JDK 1.5 이전 - 기본 타입 데이터를 Wrapper 객체로 만들어 삽입
+* 컬렉션으로부터 요소를 얻어올 때, Wrapper 클래스로 캐스팅 필요
+* JDK 1.5부터 - 자동 박싱/언박싱 작동 - 기본 타입 값 삽입 가능
+* But 타입 매개 변수를 깁본 타입으로 구체화할 수 X
+##### 컬렉션 생성문의 진화 : JAVA7, JAVA 10
+- java 7이전 - 
+Vector<Integer> v = new - Vector<Integer>(); // java 7이전
+
+java 7 이후
+* 컴파일러의 타입 추론 기능 추가
+* <> 다이아몬드 연산자에 타입 매개변수 생략
+```
+Vector<Integer> v = new Vector(); // 7부터 추가, 가능
+var v = new Vector<Integer>(); // 10부터 추가 가능
+```
+##### Arraylist<E>
+* 가변 크기 배열을 구현한 클래스
+* <E> 에 요소로 사용할 특정 타입으로 구체화
+* 벡터와 거의 동일
+* 요소 삽입, 삭제, 검색 등 벡터 기능과 거의 동일
+* 벡터와 달리 스레드 동기화 기능 없음
+* 다수 스레드가 동시에 ArrayList에 접근할 때 동기화X
+* 개발자가 스레드 동기화 코드 작성
+##### ArrayList와 Vector 차이
+✅ ArrayList와 Vector의 공통점
+* 모두 동적으로 크기가 늘어나는 배열 기반의 리스트 클래스
+
+* 항목	ArrayList	Vector
+* 동기화 여부	❌ 비동기화 (스레드 안전하지 않음)	✅ 동기화 (스레드 안전함)
+* 성능	빠름 (싱글 스레드에 적합)	느림 (동기화로 인한 오버헤드 발생)
+* 기본 크기 증가	1.5배씩 증가 (newCapacity = old + old/2)	2배씩 증가
+* 도입 시기	Java 1.2 (Collection Framework 포함)	Java 1.0 (초기부터 존재)
+* 사용 권장 여부	✅ 현대 개발에서 추천	❌ 특별한 이유 없으면 지양
+
+* 요즘은 ArrayList가 기본 선택
+
+* Vector는 거의 사용하지 않으며, 멀티스레드 환경에서는 synchronizedList, CopyOnWriteArrayList 등의 다른 스레드 안전한 대안을 사용하는 것이 좋다
+
+#### 컬렉션의 순차 검색을 위한 Integer
+* Integer<E> 인터페이스
+* 리스트 구조의 컬렉션에서 요소의 순차 검색을 위한 인터페이스
+* Vector<E>, ArrayList<E>, LinkedList<E>가 상속받는 인터페이스
+ * Iterator 객체 얻어내기
+ * 컬렉션의 iterator() 메소드 호출: 해당 컬렉션을 순차 검색할 수 있는 Iterator 객체 리턴
+ * 컬렉션 검색 코드
+
+#####
+* HashMap<K,V>
+* 키와 값의 쌍으로 구성되는 요소를 다루는 컬렉션
+* k : 키로 사용할 요소의 타입
+* v : 값으로 사용할 요소의 타입
+* - :키와 값이 한창으로 삽입
+
+* 삽입 및 검색이 빠른 특징
+* 요소 삽입 : put()메소드
+* 요소 검색 : get()메소드
+
+##### 제네릭 만들기
+* 제네릭 클래스 작성 : 클래스 이름 옆에 일반화된 타입 매개 변수 추가
+```
+public class MyClass<T>{ // 제네릭 클래스 Myclass 선언, 타입 매개 변수
+    T val; // var의 타입은 t
+    void set(T a){
+        val = a; // t 타입의 값 a를 val에 지칭
+    }
+    T get() {
+        return val; //t 타입 값 val 리턴
+    }
+}
+```
+* 제네릭 객체 생성 및 활용
+* 제네릭 타입에 구체적인 타입을 지정하여 객체를 생성하는 것을 구체화라 함
+```
+MyClass<String>s = new MyClass<String>(); //T를 String으로 구체화
+s.set("hello");
+System.out.println(s.get()); // hello 출력
+
+MyClass<Integer>n = new MyClass<Integer>(); // T를 Integer로 구체화
+n.set(5);
+System.out.println(n.gert()); //숫자 5 출력
+```
+
+### 8장 자바 GUI 스윙 기초
+#### 자바의 GUT
+* GUI : 사용자가 편리하게 입출력 할 수 있도록 그래픽으로 화면 구성. 마우스나 키보드로 입력 받을 수 있도록 지원하는 사용자 인터페이스
+* 자바 언어에서 GUI 응용프로그램 작성 : AWT와 SWING 패키지에 강력한 GUI 컴포넌트 제공
+
+#### AWT 패키지
+* 자바가 처음 나왔을 때 배포된 GUI 패키지 최근에 거의 사용 X 
+* 중량 컴포넌트
+* 그리기는 운영체제에 의해 이루어지며, 운영체제에 자원을 많이 소모하고 부담줌
+* 운영체제가 직접 그리기 때문에 속도 빠름
+
+#### Swing 패키지
+* AWT 기술을 기반으로 작성된 자바 라이브러리
+* 모든 AWT 기능 + 추가된 풍부하고 화려한 고급 컴포넌트
+* AWT 컴포넌트를 모두 스윙으로 재작성
+* AWT 컴포넌트 이름 앞에 J자를 덧붙임
+* 순수 자바 언어로 구현
+* 스윙 컴포넌트는 경량 컴포넌트
+* 스윙 컴포넌트는 운영체제의 도움을 받지 않고, 직접 그리기 때문에 운영체제에 부담주지 않음
+* 현재 자바의 GUI 표준으로 사용
+
+20
+
 
 ## 5월 8일
 ### 추상 클래스 
@@ -60,14 +265,18 @@ for (int x=0; x(10; x++){
 * 인터페이스 간에 상속 가능 : 
 * 인터페이스를 상속하여 확장된 인터페이스 작성 가능
 * extends 키워드로 상속 선언
+```
 interface MobilePhoneInterface extends PhoneInterface {
     void sendSMS(); //추상 메소드 추가
     void receiveSMS(); // 추상 메소드 추가
 }
+```
 * 인터페이스 다중 상속 허용 * 일반 상속에서 허용X
+```
 interface MusicPhoneInterface extends PhoneInterface, MP3Interface {
     ...........
 }
+```
 ### 인터페이스 구현
 * 인터페이스의 추상 메소드를 모두 구현한 클래스 작성
 * implements 키워드 사용
@@ -223,10 +432,12 @@ interface MusicPhoneInterface extends PhoneInterface, MP3Interface {
 * 생물이 들어가는 박스에 사람, 코끼리 넣어도 무방
 - 사람이나 코끼리 모두 생물 상속 받음
 ### p = s 업케스팅
-* Person[] people = new Person[3];
-* people[0] = new Student("홍길동");
-* people[1] = new Student("김영희");
-* people[2] = new Person("이순신");
+```
+ Person[] people = new Person[3];
+ people[0] = new Student("홍길동");
+ people[1] = new Student("김영희");
+ people[2] = new Person("이순신");
+```
 
 * 실제 사용보다는 업캐스팅의 제한점을 설명하기 위한 코드
 
@@ -242,7 +453,7 @@ interface MusicPhoneInterface extends PhoneInterface, MP3Interface {
 * 업캐스팅 된 것을 다시 원래대로 되돌리는 것
 * 반드시 명시적 타입 변환 지정
 
-'''j
+```
 #public class DowncastingEx {
     public static void main(String[] args) {
         Person p = new Student("이재문");  // 업캐스팅
@@ -254,43 +465,46 @@ interface MusicPhoneInterface extends PhoneInterface, MP3Interface {
         s.grade = "A";  // 정상 접근
     }
 }
-'''
+```
 ### 업캐스팅 레퍼런스로 객체 구별
 * 업캐스팅된 레퍼런스로는 객체의 실제 타입 구분 어려움
 * 슈퍼 클래스는 여러 서브 클래스에 상속되기 때문
-'''j
+```
 class Person { }
 class Student extends Person { }
 class Researcher extends Person { }
 class Professor extends Researcher { }
-'''
-'''j
+```
+
+```
 Person p = new Person();
 Person p = new Student();   // 업캐스팅
 Person p = new Professor(); // 업캐스팅
-'''
+```
 * 위 코드에서 p는 모두 Person 타입이지만, 실제로는 각각 다른 클래스의 인스턴스를 참조함.
 
 * 따라서 p만 가지고는 현재 객체가 Person, Student, Professor 중 어떤 것인지 알 수 없음.
 
 * 이런 경우 instanceof 연산자를 사용해서 실제 객체 타입을 확인할 수 있습니다
-'''j
+```
 if (p instanceof Professor) {
     System.out.println("p는 Professor 객체입니다.");
 } else if (p instanceof Student) {
     System.out.println("p는 Student 객체입니다.");
 }
-'''
+```
 ### instanceof 연산자 사용
 * 레퍼런스가 가리키는 객체의 타입 식별 : 연산의 결과는 true / false의 불린 값으로 반환
+```
 Person p = new Professor();
-'''j
+```
+```
 if(p instanceof Person) //ture
 if(p instanceof Student) //ture
 if(p instanceof Researcher) //ture
 if(p instanceof Professor) //ture
 if("java" instanceof String) //ture
-'''
+```
 ### 메소드 오버라이딩 개념
 * 서브 클래스에서 슈퍼 클래스의 메소드 중복 작성
 * 슈퍼 클래스의 메소드 무력화, 항상 서브 클래스에 오버라이딩한 메소드가 실행되록 보장된 / 메소드 무시하기로 번역되기도 함
@@ -310,6 +524,8 @@ if("java" instanceof String) //ture
 * 슈퍼 클래스의 필드 접근
 * 슈퍼 클래스의 메소드 호출 시 super로 이루어지는 메소드 호출 : 정적 바인딩
 ### 오버로딩 오버라이딩
+
+
 
 
 ## 4월 17일 (7주차)
@@ -342,13 +558,15 @@ if("java" instanceof String) //ture
 * 리턴 타입은 오버로딩과 관련 없음
 ### 객체 치환 시 주의할 점
 * 객체 치환은 객체 복사가 아니며, 레퍼런스의 복사이다.
+```
 int a = 10;          10
 int b = 5;           
-                      5
+ 5
 
 a = b;               5
 
-                     5
+5
+```
 ### 객체 소멸
 * new로 할당 받은 객체와 메모리를 jvm(자바가상기계)로 되돌려 주는 행위
 * 자바는 객체 소멸 연산자 없음
@@ -383,9 +601,12 @@ System.gc(); // 가비지 컬렉션 작동 요청
 ### 클래스 접근 지정
 * 다른 클래스에서 사용하도록 허용할 지 지정
 * public 클래스 : 다른 모드 클래스에게 접근 허용
-* 디폴트 클래스(접근 지정자 생략) : 같은 패키지의 클래스에만 접근 허용 public class World { // public 클래스}
+* 디폴트 클래스(접근 지정자 생략) : 같은 패키지의 클래스에만 접근 허용 
+```
+public class World { // public 클래스}
 class Local { //디폴트 클래스
 }
+```
 * public 멤버 : 패키지에 관계 없이 모든 클래스에게 접근 허용
 * private 멤버 : 동일 클래스 내에만 접근 허용. 상복 받은 서브 클래스에서 접근 불가
 * protected 멤버 : 같은 패키지 내의 다른 모든 클래스에게 접근 허용 
@@ -402,14 +623,17 @@ class Local { //디폴트 클래스
 * 클래스 이름으로 접근 가능
 * StaticSample.m = 3; // 클래스 이름으로 static 필드 접근
 * StaticSample.f(); // 클래스 이름으로 static 메소드 호출
+
 * 객체의 멤버로 접근 가능
+```
 StaticSample b1 = new StaticSample();
 b1.m = 3; // 객체 이름으로 static 필드 접근
 b1.f(); // 객체 이름으로 static 메소드 호출
-* non-static 멤버는 클래스 이름으로 접근 안 됨
+ non-static 멤버는 클래스 이름으로 접근 안 됨
 StaticSample.n = 5; // n은 non-static 컴파일 오류
-* StaticSample.g(); // g()는 non-static 컴파일 오류
-* non-static 모든 객체 멤버 생성, static 멤버 공유
+ StaticSample.g(); // g()는 non-static 컴파일 오류
+non-static 모든 객체 멤버 생성, static 멤버 공유
+```
 ### static의 활용 
 * 전역 변수와 전역 함수를 만들 때 할용
 * 공유 멤버를 만들 때 : static으로 선언한 멤버는 클래스의 객체들 사이에 공유
@@ -497,10 +721,11 @@ StaticSample.n = 5; // n은 non-static 컴파일 오류
 * 기본 생성자가 자동 생산되는 경우
 * 클래스에 생성자가 하나도 선언되어 있지 않을 때
 * 컴파일러에 의해 기본 생성자 자동 생성
-* class Circle {
+```
+class Circle {
     public Circle() {} // 기본 생성자
 }
-
+```
 
 
 ## 4월 3일 (5주차)
@@ -536,7 +761,9 @@ int(배열타입) intArrary(배열에 대한 래퍼런스 변수) [];(배열 선
 * intArray = new int [5]; -(0 1 2 3 4 )
 * intArray = new int [6]; -(0 1 2 3 4 5)
 * 자바 배열 - 객체 처리 배열 크기는 배열 객체 length 필드에 저장
-* for(int i=0; i<intArray.lenght; i++) - intArray 배열 크기만큼 루프 돈다
+```
+for(int i=0; i<intArray.lenght; i++) // intArray 배열 크기만큼 루프 돈다
+```
 ### for-each 문
 * 배열이나 나열의 원소를 순차 접근하는데 유용한 for 문
 ### 2차원 배열
@@ -577,54 +804,20 @@ int(배열타입) intArrary(배열에 대한 래퍼런스 변수) [];(배열 선
 final(상수선언) int(데이터타입) PI(상수이름) == 3.141592(초기화)
 * var 타입 생략 변수 선언
 * 증감연산자 많이써요
-### 자바 버추얼 머신, 멀티스레딩 이해
-멀티스레딩은 프로그램이 여러개 실행될 때 동시에 수행하도록 하는 기술
-멀티스레딩은 운영체제 도움 받지 않음
-
-### 감지 컬렉션, 메모리 변환
-감지컬렉션 = 사용하지 않는 메모리를 자동으로 정리하는 기능 = 반환 명령없이 메모리를 잡아먹지 않도록 함
-메모리 변환 = 잠심 멈춤으로써 이뤄지면 실시간 응용 프로그램에 부적합
+* 
 
 
 
-'''c
-public class Ex3DoWhile {
-    public static void main (String[] args) {
-        char a = 'a'; 
-
-        do {
-            System.out.print(a);
-            a = (char) (a + 1);
-        } while (a <= 'z');
-    }    
-}
-'''
-#### README.md 파일 편집
-
-* 이름 학번 h1 제일 위에 기재
-
-* 날짜(주차)
-
-* 배운내용&코드
-
-* 최근 날짜가 제일 위로 올라오게
-
-
-# h1 tag
-## h2
-### h3
-#### h4
-##### h5 
-###### h6
+## 3월20일(3주차)
 
 
 
----
 
-* ㅣㅏㅏㅏㅏ
-- ㅓㅓㅓㅓㅓㅓ
+#### rename.md 파일 편집
+ * 이름 학번 h1 제일 위에 기재
+ * 날짜(주차)
+ * 배운내용 & 코드
+ 최근 날짜가 제일 위로 올라오게.
 
 
-1. 이이이이이1
-2. 주주주주주2
-5. 영영영영영3
+
