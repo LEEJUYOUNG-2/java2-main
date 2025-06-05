@@ -1,5 +1,167 @@
 # 이주영 202230140
 
+## 6월 5일
+### 익명 클래스로 이벤트 리스너 작성
+* 익명 클래스 - 이름 없는 클래스
+- 클래스 선언 + 인스턴스 생성을 한번에 달성
+```
+new 익명클래스의 슈퍼클래스이름(생성자인자들) {
+    익명클래스의 멤버구현
+}
+```
+* 간단한 리스너의 경우 익명 클래스 사용 추천
+* 메소드의 개수가 1, 2개의 리스너에 대해 주로 사용
+* ActionListener를 구현하는 익명의 이벤트 작성 예
+* 이름을 가진 클래스를 작성하고 클래스 인스턴스를 생성하는 경우
+```
+class MyActionListener implementss ActionListen {
+    public void actionPerformed(ActionEvent e) {
+
+    }
+}
+```
+* ActionListener를 상속받고 바로 메소드 작성
+동시에 new로 인스턴스를 생성하는 경우
+```
+b.addActionListener(new ActionListener()) {
+    public void actionPerformed(ActionEvent e) {
+
+    }
+}
+```
+### 어댑터 클래스
+* 이벤트 리스너 구현에 따른 부담
+- 리스너의 추상 메소드를 모두 구현해야 하는 부담
+- 예) 마우스 리스너에서 마우스가 눌러지는 경우(mousePressed())만 처리하고자 하는 경우에도 나머지 4개의 메소드를 모두 구현해야 하는 부담
+* 어댑터 클래스
+- 리스너의 모든 메소드를 단순 리턴하도록 만든 클래스(JDK에서 제공)
+```
+class MouseAdapter implements MouseListener.MouseListener.MouseWheelListener {
+    public void mousePressed(MouseEvent e){}
+    public void mouseReleased(MouseEvent e){}
+    public void mouseClicked(MouseEvent e){}
+    public void mouseEntered(MouseEvent e){}
+    public void mouseExited(MouseEvent e){}
+    public void mouseDragged(MouseEvent e){}
+    public void mouseMoved(MouseEvent e ){}
+    public void mouseWheelMoved(MouseWheelEvent e ){}
+}
+```
+* 추상 메소드가 하나뿐인 리스너는 어댑터 없음
+- ActionAdapter, ItemAdapter 클래스 존재X
+
+### Key 이벤트와 포커스
+* 키 입력 시, 다음 세경우 각각 Key 이벤트 발생
+- 키를 누르는 순간
+- 누른 키를 떼는 순간
+- 누른 키를 떼를 순간(Unicode키 경우)
+* 키 이벤트를 받을 수 있는 조건
+- 모든 컴포넌트
+- 현재 포커스를 가진 컴포넌트가 키 이벤트 독점
+* 포커스
+- 컴포넌트나 응용프로그램이 키 이벤트를 독점하는 권한
+- 컴포넌트에 포커스 설정 방법 : 다음 2라인 코드 필요
+```
+component.setFocusable(true); // component가 포커스를 받을 수 있도록 설정
+component.requestFocus(); // component에 포커스 강제 지정
+```
+* 자바플랫폼마다 실행 환경의 초기화가 서로 다를 수 있기 때문에 다음 코드 필요
+* component.setFocusable(true);
+### KeyListener
+* 응용프로그램에서 KeyListener를 상속받아 키 리스너 구현
+* 3개 메소드
+```
+void keyPressed(KeyEvent e){
+    // 이벤트 처리 루틴 키를 누르는 순간
+}
+void ketReleased(KeyEvent e){
+    // 이벤트 처리 루틴 누른 키 때는 순간
+}
+void keyTyped(KeyEvent e){
+    // 이벤트 처리 루틴 누른 키 때는 순간(Unicode )
+}
+```
+### 유니코드 키
+* 유니코드 키의 특징
+- 국제 산업 표준
+- 전 세계의 문자를 컴퓨터에서 일관되게 표현하기 위한 코드 체계
+- 문자들에 대해서만 키 코드 값 정의 : A~Z, a~z, 0~9, !, @, & 등
+* 문자가 아닌 키 경우에는 표준화된 키 코드 값 없음
+- <Function>키, <Home>키, <Up>키, <Delete>키, <Control>키, <Shift>키, <Alt> 등은 플랫폼에 따라 키 코드 값이 다를 수 있다.
+* 유니코드 키가 입력되는 경우
+- keyPressed(), keyTyped(), keyReleased()가 순서대로 호출
+* 유니코드 키가 아닌 경우
+- keyPressed(), keyReleased()만 호출됨
+### 가상 키와 입력된 키 판별
+* KeyEvent 객체
+- 입력된 키 정보를 가진 이벤트 객체
+- KeyEvent 객체의 메소드로 입력된 키 판별
+
+* KeyEvent 객체의 메소드로 입력된 키 판별
+- char KeyEvent.getKeyChar()
+- 키의 유니코드 문자 값 리턴
+- Unicode 문자 키의 경우에만 의미O
+- 입력된 키를 판별하기 위해 문자 값과 비교하면 됨
+```
+public void keyPressed(KeyEvent e){
+    if(e.getKeyChar()=='q')
+        System.exit(0);
+        // q키를 누르면 프로그램 종료
+}
+```
+
+
+* int KeyEvent.getKeyCode()
+- 유니코드 키 포함
+- 모든 키에 대한 정수형 키 코드 리턴
+- 입력된 키를 판별하기 위해 가사키 값과 비교
+- 가상 키 값은 KeyEvent 클래스에 상수로 선언
+```
+public void keyPressed(KeyEvent e){
+    if(e.getKeyCode()== KeyEvent.VK_F5)
+        System.exit(0);
+        // F5 키를 누르면 프로그램 종료
+}
+```
+### 마우스 리스너 달기와 MouseEvent 객체 활용
+* 마우스 리스너 달기
+- 마우스 리스너는 컴포넌트에 다음과 같이 등록
+```
+component.addMouseListener(myMouseListener);
+```
+* 컴포넌트가 마우스 무브나 마우스 드래깅을 함께 처리하고자 하면 MouseMotion 리스너 따로 등록
+```
+component.addMouseMotionListener(myMouseMotionListener);
+```
+* 마우스 객체 활용
+- 마우스 포인터의 위치, 컴포넌트 내 상대 위치 : int getX(), int getY()
+```
+public void mousePressed(MouseEvent e){
+    int x = e.getX(); //마우스가 눌러진 x 좌표
+    int y = e.getY(); //마우스가 눌러진 y 좌표
+}
+```
+* 마우스 클릭 횟수 : int getClickCount()
+``` 
+public void mouseClicked(MouseEvent e){
+    if(e.getClickCount()==2){
+        // 더블클릭 처리 루틴
+    }
+}
+```
+### 스윙 컴포넌트의 공통 메소드, JComponent의 메소드
+* JComponent
+- 스윙 컴포넌트의 멤버를 모두 상속받는 슈퍼 클래스, 추상 클래스
+- 스윙 컴포넌트들이 상속받는 공통 메소드와 상수 구현
+
+### 챕터 내용 정리
+* 11장 그래픽  paintComponent() 활용 app에 직접 그림 그리는 방법
+* 12장 자바 스레드 기초 : 멀티 태스킹과 스레드 개념
+* 입출력 스트림과 파일 입출력 : 자바의 입출력 스트림. 텍스트와 바이너리 File 입출력
+* 14장 자바 소켓 프로그래밍 : 소켓 통신에 대한 이해. 인터넷 통신
+* 복습 4장 클래스와 객체, 5장 상속, 8장 자바 GUI 스윙 기초, 9장 자바의 이벤트 처리
+
+
 ## 5월 29일
 ### 컨테이너와 컴포넌트
 #### 컨테이너
